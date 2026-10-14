@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.2.0](https://github.com/Stayfoool/muse-illustration/compare/v1.1.2...v1.2.0) (2026-10-14)
+
+
+### Features
+
+* **skill:** 风格选择框新增「自动匹配风格」选项 ([fa9d7f7](https://github.com/Stayfoool/muse-illustration/commit/fa9d7f74a012eafc7b782d0dc2b58254eb1fa590))
+
+
+### Bug Fixes
+
+* **ci:** 发版门禁白名单补 version.txt，并去掉「申请单已存在就不审」的触发条件 ([b5496c7](https://github.com/Stayfoool/muse-illustration/commit/b5496c73bc0b57beb2c50baa5087ce832f79521f))
+
 ## [1.1.2](https://github.com/Stayfoool/muse-illustration/compare/v1.1.1...v1.1.2) (2026-10-14)
 
 
