@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/Stayfoool/muse-illustration/compare/v1.1.1...v1.1.2) (2026-10-14)
+
+
+### Bug Fixes
+
+* **skill:** 清理案例与风格元数据里的机器专属路径 ([c9ec747](https://github.com/Stayfoool/muse-illustration/commit/c9ec7472762d85f513fea5ca220d26bd3ed10a1d))
+
 ## [1.1.1](https://github.com/Stayfoool/muse-illustration/compare/v1.1.0...v1.1.1) (2026-10-14)
 
 

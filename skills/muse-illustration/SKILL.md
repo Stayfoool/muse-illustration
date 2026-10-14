@@ -5,7 +5,7 @@ license: MIT
 compatibility: Works with any agent that reads the open Agent Skill format (SKILL.md) — Claude Code, Codex, Cursor, Gemini CLI, Copilot, WorkBuddy and more. Image generation requires a text-to-image tool; style reference images are bundled.
 metadata:
   author: Stayfoool
-  version: "1.1.1" # x-release-please-version
+  version: "1.1.2" # x-release-please-version
   tags: agent-skill, illustration, chinese-poetry, text-to-image, poster, art
 agent_created: true
 ---
