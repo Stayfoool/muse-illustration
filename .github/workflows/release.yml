@@ -13,13 +13,17 @@ on:
         description: 只预演不真正发布
         type: boolean
         default: true
+      auto_merge:
+        description: 允许自动合并发版申请单
+        type: boolean
+        default: true
 
 permissions:
   contents: write
   pull-requests: write
 
 # 两个发布任务都可能在刷新 LobeHub 的 refresh_token（服务端会轮换，旧值立刻作废）。
-# 串行化可以避免两次运行同时刷新导致互相踩掉。
+# 串行化可以避免两次运行同时刷新导致互相踩掉；也顺带避免两次运行同时去合并发版申请单。
 concurrency:
   group: publish-markets-${{ github.ref }}
   cancel-in-progress: false
@@ -28,14 +32,78 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
+      release_created: ${{ steps.result.outputs.release_created }}
+      tag_name: ${{ steps.result.outputs.tag_name }}
     steps:
-      - id: release
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ① 先跑一次。两种情况：
+      #    - 上一轮已合并、但标签还没打上 → 这一步直接补发（自愈）
+      #    - 否则 → 开一张新的发版申请单（PR）
+      - name: ① 开 / 更新发版申请单
+        id: open
         uses: googleapis/release-please-action@v4
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+      # ② 合并前的唯一把关点：核对来源分支、改动文件白名单、版本号是否递增
+      - name: ② 自动审查申请单
+        id: review
+        if: steps.open.outputs.prs_created == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./scripts/release-pr-gate.sh
+
+      # ③ 审查通过才合并。两道总开关：仓库变量 RELEASE_AUTOMERGE=false，
+      #    或手动触发时把 auto_merge 勾掉。
+      - name: ③ 自动合并
+        id: merge
+        if: >-
+          ${{
+            steps.review.outputs.approved == 'true'
+            && vars.RELEASE_AUTOMERGE != 'false'
+            && (github.event_name != 'workflow_dispatch' || inputs.auto_merge == true)
+          }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge --squash --delete-branch "${{ steps.review.outputs.pr_number }}"
+
+      # ④ 必须在本轮里再跑一次 release-please。
+      #    release-please 是"看到**已合并**的申请单才发版"（源码里 createReleases()
+      #    按 PR 号索引候选发布），而用 GITHUB_TOKEN 合并 PR 产生的 push 事件
+      #    **不会**再开新的 workflow run（防递归）—— 所以不能指望下一轮 run 来打标签，
+      #    必须在这里补上第二次调用。这不是绕路，是唯一可行的做法。
+      - name: ④ 打 tag 并建 Release
+        id: tag
+        if: steps.merge.outcome == 'success'
+        uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+      # ⑤ 汇总本轮到底有没有发出新版本，供后续发布任务使用
+      - name: ⑤ 汇总结果
+        id: result
+        env:
+          OPEN_CREATED: ${{ steps.open.outputs.release_created }}
+          OPEN_TAG: ${{ steps.open.outputs.tag_name }}
+          TAG_CREATED: ${{ steps.tag.outputs.release_created }}
+          TAG_TAG: ${{ steps.tag.outputs.tag_name }}
+        run: |
+          set -euo pipefail
+          if [ "$OPEN_CREATED" = "true" ]; then
+            echo "本轮发版来自步骤①（补打上一轮遗漏的标签）：$OPEN_TAG"
+            printf 'release_created=true\ntag_name=%s\n' "$OPEN_TAG" >> "$GITHUB_OUTPUT"
+          elif [ "$TAG_CREATED" = "true" ]; then
+            echo "本轮发版来自步骤④（自动合并后立即打标签）：$TAG_TAG"
+            printf 'release_created=true\ntag_name=%s\n' "$TAG_TAG" >> "$GITHUB_OUTPUT"
+          else
+            echo "本轮没有产生新版本。"
+            echo "release_created=false" >> "$GITHUB_OUTPUT"
+          fi
 
   # 注意：release-please 用 GITHUB_TOKEN 创建 release，而 GITHUB_TOKEN 触发的事件
   # 不会再开新的 workflow run。所以推市场这件事**不能**用独立的 `on: release`
