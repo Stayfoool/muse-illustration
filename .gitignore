@@ -8,3 +8,6 @@ desktop.ini
 
 # 第三方版权素材：原始参考图不随包发布
 anchor-source.webp
+
+# 各平台上架成品包（本地构建产物）
+dist/
