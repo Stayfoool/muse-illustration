@@ -14,6 +14,18 @@ agent_created: true
 
 把一段文学性输入（诗词、意象、一句灵感）转成一张或多张插画 / 海报。
 
+## 效果示例
+
+![四张成品：江南春·水印木刻 / 忆江南·水印木刻 / 江南春·risograph / 江南春·色块彩墨](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/hero.jpg)
+
+| 杜牧《江南春》· 水印木刻 | 白居易《忆江南》· 水印木刻 |
+|---|---|
+| ![江南春·水印木刻](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/01-jiangnanchun-muke.jpg) | ![忆江南·水印木刻](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/02-yijiangnan-muke.jpg) |
+
+| 杜牧《江南春》· risograph 版画 | 杜牧《江南春》· 色块彩墨 |
+|---|---|
+| ![江南春·risograph](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/03-jiangnanchun-riso.jpg) | ![江南春·色块彩墨](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/04-jiangnanchun-chunkcolor.jpg) |
+
 ## 何时使用
 
 - 用户给出诗词 / 词句 / 意象词 / 单句灵感，并要求「画成画 / 出图 / 生成插画 / 做海报 / 配图」

@@ -6,13 +6,25 @@
 
 遵循开放的 Agent Skill 格式（`SKILL.md`），Claude Code / Codex / Cursor / Gemini CLI / Copilot 等 20+ 工具通用。
 
-![预览：杜牧《江南春》· 水印木刻](skills/muse-illustration/assets/cases/images/2026-10-14-jiangnanchun.png)
+![muse-illustration 成品示例：江南春·水印木刻 / 忆江南·水印木刻 / 江南春·risograph / 江南春·色块彩墨](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/hero.jpg)
+
+## 效果示例
+
+> 以下**均为本技能实际产出**，对应风格配方见 `skills/muse-illustration/assets/styles/`。
+
+| 杜牧《江南春》· 水印木刻 | 白居易《忆江南》· 水印木刻 |
+|---|---|
+| ![江南春·水印木刻](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/01-jiangnanchun-muke.jpg) | ![忆江南·水印木刻](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/02-yijiangnan-muke.jpg) |
+
+| 杜牧《江南春》· risograph 版画 | 杜牧《江南春》· 色块彩墨 |
+|---|---|
+| ![江南春·risograph](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/03-jiangnanchun-riso.jpg) | ![江南春·色块彩墨](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/04-jiangnanchun-chunkcolor.jpg) |
 
 ## 特性
 
 - 🌱 **可成长的风格库** —— 每条风格 = 正向提示词 + 负向约束 + 参考图 + 参数。用得越多越准。
 - 🧠 **意象解析** —— 诗词 / 意象词 / 单句灵感 → 六维意象清单（主体 · 景物 · 动作 · 色彩 · 情绪 · 时空）。
-- 🎨 **自选风格** —— 内置「江南春 · 水印木刻」「risograph 版画」，可持续新增。
+- 🎨 **自选风格** —— 内置「江南春 · 水印木刻」「risograph 版画」「色块彩墨」，可持续新增。
 - 🖼 **自选成品形态** —— 竖版立轴 2:3 / 小红书 3:4 / 方图 1:1 / 横版 3:2 / 带标题字海报。
 - 🔢 **自选张数** —— 1 / 2 / 4 张变体择优。
 - 📦 **案例沉淀** —— 采纳的成图连同经验一起归档，风格越用越稳。
