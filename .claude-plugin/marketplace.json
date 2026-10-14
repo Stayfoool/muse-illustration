@@ -10,7 +10,7 @@
       "name": "muse-illustration",
       "source": "./",
       "description": "Turn poems, imagery, or a one-line spark into illustrations or posters, with a growing built-in style library.",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "keywords": [
         "agent-skill",
         "illustration",
