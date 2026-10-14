@@ -50,9 +50,16 @@ jobs:
           manifest-file: .release-please-manifest.json
 
       # ② 合并前的唯一把关点：核对来源分支、改动文件白名单、版本号是否递增
+      #
+      # 这里**故意不加** `if: steps.open.outputs.prs_created == 'true'`。
+      # 该输出的语义是「本次运行新建或**更新**了申请单」，实测在「申请单已存在、
+      # 且内容没有变化」时为 false（最容易撞上的就是：门禁报错 → 修好脚本 →
+      # 重跑一次看结果）。一旦它为 false，②③④ 会连环跳过，整轮反而**变绿**，
+      # 但既没合并也没发版 —— 假绿比红灯更难发现。
+      # 门禁脚本自己会判断"有没有单可审"（无单则 approved=false 正常退出），
+      # 所以让它每次都跑，才是自愈的。
       - name: ② 自动审查申请单
         id: review
-        if: steps.open.outputs.prs_created == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./scripts/release-pr-gate.sh

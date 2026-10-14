@@ -9,6 +9,7 @@
 #   1. 单子必须是 release-please 开的（分支名前缀 release-please--），别的 PR 一律不放行
 #   2. 它**只能**动「版本号 / CHANGELOG / manifest」这几个文件；夹带任何其它改动就拒绝
 #      —— 这一条是真正有价值的部分：防止发版单里混进代码改动
+#      （version.txt 属于 release-please `simple` 策略的版本存储文件，必须放行）
 #   3. 版本号必须是合法 semver，且严格大于 .release-please-manifest.json 里记录的当前版本
 #   4. 把变更说明打到日志里（审计留痕，事后可查"当时到底发了什么"）
 #
@@ -20,7 +21,7 @@
 # 退出码：0 = 已给出结论（含"无单可审"）；1 = 审查不通过，需要人看（会让 CI 变红，这是故意的）
 set -euo pipefail
 
-ALLOWED_RE='^(CHANGELOG\.md|\.release-please-manifest\.json|\.claude-plugin/plugin\.json|\.claude-plugin/marketplace\.json|skills/muse-illustration/SKILL\.md)$'
+ALLOWED_RE='^(version\.txt|CHANGELOG\.md|\.release-please-manifest\.json|\.claude-plugin/plugin\.json|\.claude-plugin/marketplace\.json|skills/muse-illustration/SKILL\.md)$'
 BRANCH_PREFIX="${PR_BRANCH_PREFIX:-release-please--}"
 
 # 放行一个"不合并"的结论，但流程继续（绿）
