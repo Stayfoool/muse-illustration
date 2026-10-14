@@ -12,8 +12,9 @@
 #
 # 前置条件：
 #   clawhub : clawhub whoami 有输出（npx -y clawhub@latest login，设备码授权）
-#   lobehub : ~/.lobehub-market/user-credentials.json 存在且未过期
-#             （npx -y @lobehub/market-cli login + github connect）
+#   lobehub : ~/.lobehub-market/user-credentials.json 存在（npx -y @lobehub/market-cli login）
+#             CI 里不用手工准备，.github/workflows/release.yml 会先跑
+#             scripts/lobehub-ci-refresh.py 用 refresh_token 换出新鲜令牌再调本脚本。
 #
 # 环境变量：NPX=<npx 路径>  PYTHON=<python3 路径>
 set -euo pipefail
@@ -122,19 +123,24 @@ fi
 # 我们的绕行方式是按同一接口用 curl 发正确的 multipart。
 if has_target lobehub; then
   echo "── LobeHub ─────────────────────────────────────────────"
-  [ -f "$LB_CRED" ] || {
-    echo "  ⚠️  找不到凭据 $LB_CRED。请先跑：npx -y @lobehub/market-cli login" >&2; exit 1; }
 
-  read -r LB_TOKEN LB_BASE LB_WHO < <("$PYTHON" -c "
+  if [ "$DRY_RUN" = "1" ]; then
+    echo "  [dry-run] POST ${LOBEHUB_BASE_URL:-https://market.lobehub.com}/api/v1/user/skills/$LOBEHUB_ID/versions （上传 zip）"
+  else
+    # 凭据文件：本地由 `lhm login` 写入；CI 由 scripts/lobehub-ci-refresh.py 刷新后写入。
+    [ -f "$LB_CRED" ] || {
+      echo "  ⚠️  找不到凭据 $LB_CRED。" >&2
+      echo "      本地：npx -y @lobehub/market-cli login" >&2
+      echo "      CI  ：先跑 scripts/lobehub-ci-refresh.py（需要 LOBEHUB_REFRESH_TOKEN）" >&2
+      exit 1; }
+
+    read -r LB_TOKEN LB_BASE LB_WHO < <("$PYTHON" -c "
 import json,sys
 d=json.load(open(sys.argv[1]))
 print(d['accessToken'], d['baseUrl'], d.get('displayName',''))
 " "$LB_CRED")
 
-  if [ "$DRY_RUN" = "1" ]; then
-    echo "  [dry-run] POST $LB_BASE/api/v1/user/skills/$LOBEHUB_ID/versions （上传 zip）"
-  else
-    echo "  登录态：$LB_WHO"
+    echo "  登录态：${LB_WHO:-（未记录显示名）}"
     ZIP="$(mktemp -t lobeskill.XXXXXX).zip"
     "$PYTHON" - "$SKILL_DIR" "$ZIP" <<'PY'
 import os, sys, zipfile

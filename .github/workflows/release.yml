@@ -18,6 +18,12 @@ permissions:
   contents: write
   pull-requests: write
 
+# 两个发布任务都可能在刷新 LobeHub 的 refresh_token（服务端会轮换，旧值立刻作废）。
+# 串行化可以避免两次运行同时刷新导致互相踩掉。
+concurrency:
+  group: publish-markets-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   release-please:
     runs-on: ubuntu-latest
@@ -71,3 +77,47 @@ jobs:
       - name: 推送到 ClawHub
         if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
         run: ./scripts/publish-markets.sh --only clawhub
+
+  # LobeHub 的发布接口要的是**用户级**令牌，而 M2M 的 clientId/clientSecret
+  # 换来的令牌只代表 CLI 客户端自己（调 /v1/user/skills 会回 invalid_token）。
+  # 用户令牌靠 refresh_token 离线续期，但服务端**每次刷新都会轮换**、
+  # 旧值立刻作废 —— 所以刷新之后必须马上把新值写回 Secret，见
+  # scripts/lobehub-ci-refresh.py 顶部的说明。
+  publish-lobehub:
+    needs: release-please
+    if: >-
+      ${{
+        needs.release-please.outputs.release_created == 'true'
+        || inputs.publish_now == true
+      }}
+    runs-on: ubuntu-latest
+    env:
+      LOBEHUB_REFRESH_TOKEN: ${{ secrets.LOBEHUB_REFRESH_TOKEN }}
+      GH_SECRETS_PAT: ${{ secrets.GH_SECRETS_PAT }}
+      DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.release-please.outputs.tag_name || github.ref }}
+
+      - name: 自检配置
+        run: |
+          if [ -z "$LOBEHUB_REFRESH_TOKEN" ]; then
+            echo "::notice::未配置 Secret LOBEHUB_REFRESH_TOKEN，本次跳过 LobeHub 发布。"
+          elif [ -z "$GH_SECRETS_PAT" ]; then
+            echo "::warning::有 LOBEHUB_REFRESH_TOKEN 但缺 GH_SECRETS_PAT：本次能刷新并发布，但轮换后的 refresh_token 无法写回，下一次发布必然失败。"
+          fi
+
+      # 先换令牌再发布。dry-run 时跳过，避免白白消耗掉一次 refresh_token。
+      - name: 刷新 LobeHub 令牌（并把轮换值写回 Secret）
+        if: ${{ env.LOBEHUB_REFRESH_TOKEN != '' && env.DRY_RUN != 'true' }}
+        run: python3 scripts/lobehub-ci-refresh.py
+
+      - name: 预演（不发布）
+        if: ${{ env.DRY_RUN == 'true' }}
+        run: ./scripts/publish-markets.sh --only lobehub --dry-run
+
+      - name: 推送到 LobeHub
+        if: ${{ env.DRY_RUN != 'true' && env.LOBEHUB_REFRESH_TOKEN != '' }}
+        run: ./scripts/publish-markets.sh --only lobehub

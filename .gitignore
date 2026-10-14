@@ -11,3 +11,7 @@ anchor-source.webp
 
 # 各平台上架成品包（本地构建产物）
 dist/
+
+# Python 缓存
+__pycache__/
+*.pyc
