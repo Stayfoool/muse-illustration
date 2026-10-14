@@ -24,7 +24,7 @@
 
 - 🌱 **可成长的风格库** —— 每条风格 = 正向提示词 + 负向约束 + 参考图 + 参数。用得越多越准。
 - 🧠 **意象解析** —— 诗词 / 意象词 / 单句灵感 → 六维意象清单（主体 · 景物 · 动作 · 色彩 · 情绪 · 时空）。
-- 🎨 **自选风格** —— 内置「江南春 · 水印木刻」「risograph 版画」「色块彩墨」，可持续新增。
+- 🎨 **自选风格** —— 内置「江南春 · 水印木刻」「risograph 版画」「色块彩墨」，可持续新增。**选择框里始终带一项「自动匹配风格」**：不想自己挑时，交给技能按意象与情绪裁定。
 - 🖼 **自选成品形态** —— 竖版立轴 2:3 / 小红书 3:4 / 方图 1:1 / 横版 3:2 / 带标题字海报。
 - 🔢 **自选张数** —— 1 / 2 / 4 张变体择优。
 - 📦 **案例沉淀** —— 采纳的成图连同经验一起归档，风格越用越稳。
@@ -81,7 +81,9 @@ npx skills add Stayfoool/muse-illustration
 
 > 用江南春那个风格，把《忆江南》画成画
 
-技能会自动走完：**解析意象 → 匹配风格 → 组装提示词 → 生成 → 询问是否采纳**。采纳后，成图与经验一并归档进风格库。
+技能会自动走完：**解析意象 → 选择风格 → 组装提示词 → 生成 → 询问是否采纳**。采纳后，成图与经验一并归档进风格库。
+
+没指定风格时会**弹出选择框，把决定权交给你**，选项 = 「**自动匹配风格**」（让技能按意象与情绪挑）+ 库内每一个风格。风格库新增一条，选择框就自动多一项。
 
 ## 新增风格
 
@@ -104,7 +106,7 @@ npx skills add Stayfoool/muse-illustration
 
 ## English
 
-**Muse Illustration** turns poems, imagery, or a single line of inspiration into illustrations or posters. It is an Agent Skill with a *growing built-in style library* — each style bundles a positive prompt, negative constraints, a reference image and parameters. You can pick the style, the number of variants, and the output format (vertical scroll, 3:4, 1:1, 3:2, or a titled poster).
+**Muse Illustration** turns poems, imagery, or a single line of inspiration into illustrations or posters. It is an Agent Skill with a *growing built-in style library* — each style bundles a positive prompt, negative constraints, a reference image and parameters. When you don't name a style, it shows a picker whose first entry is **auto-match** (it picks by imagery and mood for you), followed by every style in the library. You also choose the number of variants and the output format (vertical scroll, 3:4, 1:1, 3:2, or a titled poster).
 
 ```
 /plugin marketplace add Stayfoool/muse-illustration

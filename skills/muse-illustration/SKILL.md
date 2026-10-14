@@ -1,6 +1,6 @@
 ---
 name: muse-illustration
-description: Turn poems, imagery, or a one-line spark of inspiration into illustrations or posters, using a growing built-in style library. 把诗词、词句、意象或一句话灵感，转化为插画或海报。当用户提供一首诗词 / 词句 / 意象词 / 一句灵感，并要求画成画、出图、生成插画、做海报、配图，或要求用某个已收录风格出图时使用。内置可成长的风格库（风格配方 = 正向提示词 + 负向约束 + 参考图 + 参数），并支持选择风格、出图张数与成品形态。
+description: Turn poems, imagery, or a one-line spark of inspiration into illustrations or posters, using a growing built-in style library. 把诗词、词句、意象或一句话灵感，转化为插画或海报。当用户提供一首诗词 / 词句 / 意象词 / 一句灵感，并要求画成画、出图、生成插画、做海报、配图，或要求用某个已收录风格出图时使用。内置可成长的风格库（风格配方 = 正向提示词 + 负向约束 + 参考图 + 参数），并支持选择风格（选择框内含「自动匹配风格」一项，可按意象与情绪推荐）、出图张数与成品形态。
 license: MIT
 compatibility: Works with any agent that reads the open Agent Skill format (SKILL.md) — Claude Code, Codex, Cursor, Gemini CLI, Copilot, WorkBuddy and more. Image generation requires a text-to-image tool; style reference images are bundled.
 metadata:
@@ -45,18 +45,21 @@ agent_created: true
    - 抽取六类意象：主体、景物、动作、色彩词、情绪基调、时空
    - 输入为「单句灵感」而信息不足时，先给出意象清单请用户确认（允许一键跳过）
 
-2. **选择风格**
-   - 用户已指定 → 直接用
-   - 未指定 → 按题材 / 情绪从 `assets/styles/` 推荐 1-2 条并说明理由，让用户选
-   - 读取该风格的 `meta.yaml` + `prompt.positive.txt` + `prompt.negative.txt` + `ref.jpg`
+2. **选择风格** —— 用户未指定时，**必须用选择框把决定权交给用户**，不要自行拍板。
+   - 用户已指定风格名 → 直接用，不再追问
+   - 未指定 → 弹出选择框，选项 = **「自动匹配风格」+ 库内全部风格**，规则见 `references/assembly-rules.md` 第 2 节
+     - **第一项固定为「自动匹配风格（推荐）」**：用户选它，即授权你按第 1 步的意象清单（重点看情绪基调与景物）自行裁定一条最合适的风格；**说明一句理由后直接进入第 3 步，不再追问第二次**
+     - 其后逐条列出 `assets/styles/` 下**每一个**风格：标签用 `meta.yaml` 的 `name`，描述带上「一句话特征 + 适配情绪（`mood`）」
+     - **风格清单不得写死在本文档里**：新增风格后，选择框必须自动跟着长出来
+   - 定下后读取该风格的 `meta.yaml` + `prompt.positive.txt` + `prompt.negative.txt` + `ref.jpg`
 
 3. **确认出图参数**（用户可选；未指定则用风格默认值）
    - **张数**：1 张（省额度）/ 2 张 / 4 张（多变体择优，成本 ×N）
    - **成品形态**：纯插画（默认竖版立轴 2:3）/ 小红书 3:4 / 方图 1:1 / 横版 3:2 / 带标题字海报
-   - 比例与尺寸映射见 `references/assembly-rules.md` 第 3 节
-   - 注意：生图模型渲染中文字不稳，**海报标题字需另走本地排版**（见 `references/assembly-rules.md` 第 4 节）
+   - 比例与尺寸映射见 `references/assembly-rules.md` 第 4 节
+   - 注意：生图模型渲染中文字不稳，**海报标题字需另走本地排版**（见 `references/assembly-rules.md` 第 5 节）
 
-4. **组装提示词** —— 详见 `references/assembly-rules.md` 第 2 节。
+4. **组装提示词** —— 详见 `references/assembly-rules.md` 第 3 节。
    - 用「风格正向模板」套入「意象清单」，再附上风格负向约束
    - 有参考图时作为 `image1` 传入做风格锚定，并强调「只借风格与笔触，不要照抄构图」
 
@@ -71,7 +74,7 @@ agent_created: true
 
 ## 资源
 
-- `references/assembly-rules.md` —— 解析 / 组装 / 尺寸 / 叠字 的详细规则
+- `references/assembly-rules.md` —— 解析 / 选风格 / 组装 / 尺寸 / 叠字 / 归档 的详细规则
 - `references/style-spec-template.md` —— 新增风格条目与案例记录的模板
 - `assets/styles/<风格名>/` —— 风格库（`meta.yaml` / `prompt.positive.txt` / `prompt.negative.txt` / `ref.jpg`）
 - `assets/lexicon/imagery.yaml` —— 意象 → 视觉元素 词典
