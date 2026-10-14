@@ -114,5 +114,3 @@ npx skills add Stayfoool/muse-illustration
 Or `npx skills add Stayfoool/muse-illustration`.
 
 MIT © 2026 Stayfoool
-
-<!-- selftest -->
