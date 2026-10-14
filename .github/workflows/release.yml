@@ -54,6 +54,13 @@ jobs:
         with:
           node-version: '22'
 
+      # 注意：clawhub 的 README 提到 CLAWHUB_TOKEN 环境变量，但当前 CLI 版本
+      # （v0.23.3）代码里并没有实现它 —— 单靠 env 会报 "Not logged in"。
+      # CLI 真正读取的是配置文件（Linux 下 ~/.config/clawhub/…），
+      # 所以这里用 `login --token` 把它写进去。
+      - name: 登录 ClawHub
+        run: npx -y clawhub@latest login --token "$CLAWHUB_TOKEN"
+
       - name: 校验 ClawHub 凭据
         run: npx -y clawhub@latest whoami
 
