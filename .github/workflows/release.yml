@@ -3,6 +3,16 @@ name: Release
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      publish_now:
+        description: 手动按当前版本推一次技能市场（不等待新 release）
+        type: boolean
+        default: false
+      dry_run:
+        description: 只预演不真正发布
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -11,8 +21,46 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
-      - uses: googleapis/release-please-action@v4
+      - id: release
+        uses: googleapis/release-please-action@v4
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+  # 注意：release-please 用 GITHUB_TOKEN 创建 release，而 GITHUB_TOKEN 触发的事件
+  # 不会再开新的 workflow run。所以推市场这件事**不能**用独立的 `on: release`
+  # workflow 来实现 —— 那样永远不会被触发。必须像这样挂在同一个 workflow 里做链式 job。
+  publish-clawhub:
+    needs: release-please
+    if: >-
+      ${{
+        needs.release-please.outputs.release_created == 'true'
+        || inputs.publish_now == true
+      }}
+    runs-on: ubuntu-latest
+    env:
+      CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.release-please.outputs.tag_name || github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 校验 ClawHub 凭据
+        run: npx -y clawhub@latest whoami
+
+      - name: 预演（不发布）
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
+        run: ./scripts/publish-markets.sh --only clawhub --dry-run
+
+      - name: 推送到 ClawHub
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
+        run: ./scripts/publish-markets.sh --only clawhub
