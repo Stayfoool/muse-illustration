@@ -2,9 +2,21 @@
 
 > 把**诗词、意象，甚至一句灵感**，变成**插画或海报**。
 
-一个**可成长的 Agent Skill**：内置「风格库」，自动把文学性输入解析成意象、匹配风格、组装提示词并生成插画。支持自选**风格**、**出图张数**与**成品形态**。
+[![Release](https://img.shields.io/github/v/release/Stayfoool/muse-illustration)](https://github.com/Stayfoool/muse-illustration/releases) [![License](https://img.shields.io/github/license/Stayfoool/muse-illustration)](LICENSE)
+
+**内置 3 种可复用风格任你挑；不想挑，就让它按意象与情绪替你选。**
+
+- 🎨 **多种风格任选** —— 水印木刻 / risograph 版画 / 色块彩墨。每条都是**完整配方**（正向提示词 + 负向约束 + 参考图 + 参数），不是随口形容 —— 所以风格能稳定复现，也能一条条持续新增。
+- ✨ **自动匹配风格** —— 不指定风格照样能用：技能解析出意象后，按**景物与情绪**替你裁定一条，**并说明为什么选它**；两条难分高下时，会把两条都摆出来让你点。
+- 🧠 **意象解析** —— 诗词 / 意象词 / 单句灵感 → 六维意象清单（主体 · 景物 · 动作 · 色彩 · 情绪 · 时空），再由内置词典翻成可执行的画面元素。
+- 🖼 **形态与张数自选** —— 竖版立轴 2:3 / 小红书 3:4 / 方图 1:1 / 横版 3:2 / 带标题字海报；1 / 2 / 4 张变体择优。
+- 🌱 **越用越准** —— 采纳的成图连同经验一起归档进风格库；风格库与意象词典都随使用增长。
 
 遵循开放的 Agent Skill 格式（`SKILL.md`），Claude Code / Codex / Cursor / Gemini CLI / Copilot 等 20+ 工具通用。
+
+一句话就能开始：
+
+> 用江南春那个风格，把《忆江南》画成画 —— 或者干脆说「你替我挑个风格」。
 
 ![muse-illustration 成品示例：江南春·水印木刻 / 忆江南·水印木刻 / 江南春·risograph / 江南春·色块彩墨](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/hero.jpg)
 
@@ -20,14 +32,17 @@
 |---|---|
 | ![江南春·risograph](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/03-jiangnanchun-riso.jpg) | ![江南春·色块彩墨](https://raw.githubusercontent.com/Stayfoool/muse-illustration/main/showcase/04-jiangnanchun-chunkcolor.jpg) |
 
-## 特性
+## 风格库
 
-- 🌱 **可成长的风格库** —— 每条风格 = 正向提示词 + 负向约束 + 参考图 + 参数。用得越多越准。
-- 🧠 **意象解析** —— 诗词 / 意象词 / 单句灵感 → 六维意象清单（主体 · 景物 · 动作 · 色彩 · 情绪 · 时空）。
-- 🎨 **自选风格** —— 内置「江南春 · 水印木刻」「risograph 版画」「色块彩墨」，可持续新增。**选择框里始终带一项「自动匹配风格」**：不想自己挑时，交给技能按意象与情绪裁定。
-- 🖼 **自选成品形态** —— 竖版立轴 2:3 / 小红书 3:4 / 方图 1:1 / 横版 3:2 / 带标题字海报。
-- 🔢 **自选张数** —— 1 / 2 / 4 张变体择优。
-- 📦 **案例沉淀** —— 采纳的成图连同经验一起归档，风格越用越稳。
+三条风格现成可用，各带一份参考图与提示词配方：
+
+| 风格 | 画面语言 | 适配情绪 | 适合题材 |
+|---|---|---|---|
+| **江南春 · 水印木刻** | 米白纸底、平涂色块、短刻痕，套色 / 水印木刻的平面语言 | 清雅 / 静谧 / 悠远 | 古典诗词、山水、江南、田园、建筑群 |
+| **江南春 · risograph 版画** | 3-4 色有限调色板、颗粒噪点、油墨不均、套色错位 | 怀旧 / 清新 / 安静 | 古典诗词、山水、江南、田园 |
+| **色块彩墨** | 下三分之二沉静单色面 + 上沿细墨线 + 大留白，展览海报式 | 清雅 / 静谧 / 克制 / 隐逸 | 古典诗词、山水、水乡、田园 |
+
+**不指定风格时会弹出选择框**：第一项固定是「**自动匹配风格**」，其后逐条列出库内每一个风格，并带上它的适配情绪，方便你一眼判断。选择框的清单**不写死在技能里** —— 每次现读风格目录，风格库新增一条，它就自动多一项。
 
 ## 安装
 
@@ -59,31 +74,25 @@ npx skills add Stayfoool/muse-illustration
 
 ```
 .
-├── .claude-plugin/
-│   ├── marketplace.json          # 插件市场清单
-│   └── plugin.json               # 插件清单
+├── .claude-plugin/               # 插件市场清单（Claude Code 等）
 ├── skills/
-│   └── muse-illustration/        # ← 技能本体
+│   └── muse-illustration/        # ← 技能本体（整个目录可独立拷贝使用）
 │       ├── SKILL.md
-│       ├── references/           # 组装规则 / 模板
+│       ├── references/           # 组装规则 / 风格与案例模板
 │       └── assets/
 │           ├── styles/           # 风格库（每条：正向 + 负向 + 参考图）
 │           ├── lexicon/          # 意象 → 视觉元素 词典
 │           └── cases/            # 已采纳案例 + 成图
-├── scripts/
-│   └── sync-skill.sh             # 本地技能 → 仓库 同步脚本
-└── .github/workflows/release.yml # 自动打版
+├── showcase/                     # README 成品图
+├── scripts/                      # 打包 / 发布 / 发版门禁 / 同步
+└── .github/workflows/release.yml # 自动升版、打 Release 并推市场
 ```
 
 ## 怎么用
 
-对 agent 说一句，比如：
+对 agent 说一句就够了，技能会自动走完：**解析意象 → 选择风格 → 组装提示词 → 生成 → 询问是否采纳**。采纳后，成图与经验一并归档进风格库。
 
-> 用江南春那个风格，把《忆江南》画成画
-
-技能会自动走完：**解析意象 → 选择风格 → 组装提示词 → 生成 → 询问是否采纳**。采纳后，成图与经验一并归档进风格库。
-
-没指定风格时会**弹出选择框，把决定权交给你**，选项 = 「**自动匹配风格**」（让技能按意象与情绪挑）+ 库内每一个风格。风格库新增一条，选择框就自动多一项。
+风格没指定时，它会**弹出选择框把决定权交给你**（第一项是「自动匹配风格」）；你说了「随便 / 你定」，它就按意象与情绪替你挑，并给出理由。
 
 ## 新增风格
 
@@ -106,7 +115,7 @@ npx skills add Stayfoool/muse-illustration
 
 ## English
 
-**Muse Illustration** turns poems, imagery, or a single line of inspiration into illustrations or posters. It is an Agent Skill with a *growing built-in style library* — each style bundles a positive prompt, negative constraints, a reference image and parameters. When you don't name a style, it shows a picker whose first entry is **auto-match** (it picks by imagery and mood for you), followed by every style in the library. You also choose the number of variants and the output format (vertical scroll, 3:4, 1:1, 3:2, or a titled poster).
+**Muse Illustration** turns poems, imagery, or a single line of inspiration into illustrations or posters. It is an Agent Skill with a *growing built-in style library* — **pick any of the bundled styles, or let the skill pick for you**: when you don't name one, it shows a picker whose first entry is **auto-match**, and if you take it, the skill chooses by imagery and mood and *tells you why*. Each style bundles a positive prompt, negative constraints, a reference image and parameters, so results are reproducible rather than one-off. You also choose the number of variants and the output format (vertical scroll, 3:4, 1:1, 3:2, or a titled poster).
 
 ```
 /plugin marketplace add Stayfoool/muse-illustration
