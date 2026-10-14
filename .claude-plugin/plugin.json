@@ -1,0 +1,19 @@
+{
+  "name": "muse-illustration",
+  "version": "1.0.0",
+  "description": "Turn poems, imagery, or a one-line spark into illustrations or posters, with a growing built-in style library.",
+  "author": {
+    "name": "Stayfoool",
+    "url": "https://github.com/Stayfoool"
+  },
+  "homepage": "https://github.com/Stayfoool/muse-illustration",
+  "repository": "https://github.com/Stayfoool/muse-illustration",
+  "license": "MIT",
+  "keywords": [
+    "agent-skill",
+    "illustration",
+    "chinese-poetry",
+    "text-to-image",
+    "poster"
+  ]
+}

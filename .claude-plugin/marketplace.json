@@ -1,0 +1,23 @@
+{
+  "name": "muse-illustration",
+  "owner": {
+    "name": "Stayfoool",
+    "url": "https://github.com/Stayfoool"
+  },
+  "description": "把诗词、意象，甚至一句灵感，变成插画或海报。",
+  "plugins": [
+    {
+      "name": "muse-illustration",
+      "source": "./",
+      "description": "Turn poems, imagery, or a one-line spark into illustrations or posters, with a growing built-in style library.",
+      "version": "1.0.0",
+      "keywords": [
+        "agent-skill",
+        "illustration",
+        "chinese-poetry",
+        "text-to-image",
+        "poster"
+      ]
+    }
+  ]
+}
