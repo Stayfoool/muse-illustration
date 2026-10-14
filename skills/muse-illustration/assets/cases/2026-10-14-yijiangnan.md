@@ -33,7 +33,7 @@
 - **参数**：size=1024x1536（2:3 竖版立轴） quality=high 张数=1
 - **参考图**：`assets/styles/jiangnan-muke/ref.jpg`（以 image1 传入，提示词内明确「只借风格、不抄构图」）
 - **成图**：`assets/cases/images/2026-10-14-yijiangnan.jpg`（技能内自包含副本）
-- **原始输出路径**：/Users/yw/ai/poet/generated-images/A_vertical_hanging_scroll_illu_2026-10-14T04-37-31.png
+- **原始输出文件名**：`A_vertical_hanging_scroll_illu_2026-10-14T04-37-31.png`（生成工具按提示词自动命名；原图留在作者本地，未随包发布）
 - **是否采纳**：是
 - **用户评价 / 可提炼的规则**：
   1. 用户直接采纳，无修改意见 —— 说明 `jiangnan-muke` 配方首次跨题材复用成功（从《江南春》→《忆江南》）。

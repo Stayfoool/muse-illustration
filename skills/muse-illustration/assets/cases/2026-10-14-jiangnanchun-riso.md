@@ -19,7 +19,7 @@
 - **参数**：size=1024x1536（2:3 竖版立轴） quality=high 张数=1
 - **参考图**：本风格目录 `ref.jpg`（= 本次成图，仅借风格不抄构图）
 - **成图**：`assets/cases/images/2026-10-14-jiangnanchun-riso.jpg`（技能内自包含副本）
-- **原始输出路径**：/Users/yw/ai/poet/generated-images/A_vertical_hanging_scroll__竖版立_2026-10-14T04-46-05.png
+- **原始输出文件名**：`A_vertical_hanging_scroll__竖版立_2026-10-14T04-46-05.png`（生成工具按提示词自动命名；原图留在作者本地，未随包发布）
 - **是否采纳**：是
 - **用户评价 / 可提炼的规则**：
   1. 用户明确认可并指令归档入库，作为 `riso-print` 风格的第 1 条案例。

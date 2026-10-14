@@ -13,10 +13,10 @@
   `{SUBJECT}`=水村山郭 + 楼台寺塔 + 烟雨 ｜ `{MASS_IS}`=a spring river ｜ `{MASS_COLOR}`=celadon green #8BA79B
 - **负向**：见 `assets/styles/chunkcolor/prompt.negative.txt`（留红版末尾追加段）
 - **参数**：size=1024x1536 quality=high 张数=2（A/B 对照）
-- **参考图**：`ref/chunkcolor/36f5c999-dd57-4616-9187-f6691805bf01.webp`（image1，`input_fidelity=medium`）
+- **参考图**：`36f5c999-dd57-4616-9187-f6691805bf01.webp`（image1，`input_fidelity=medium`）。**第三方展览海报，版权不属于本项目，未随包发布**；若需复现，请自备一张同风格参考图，或直接用本风格随包的 `ref.jpg`（＝本项目自产成图）。
 - **成图**：`assets/cases/images/2026-10-14-jiangnanchun-chunkcolor.jpg`（技能内自包含副本，＝A 锚定版）
-  ｜原始输出：`/Users/yw/ai/poet/generated-images/Reference_image_instruction__t_2026-10-14T05-50-36.png`
-  ｜对照版（未采纳）：`/Users/yw/ai/poet/generated-images/Modern_Oriental_ink_and_waterc_2026-10-14T05-50-35.png`
+  ｜原始输出文件名：`Reference_image_instruction__t_2026-10-14T05-50-36.png`（A 锚定版）
+  ｜对照版（未采纳）文件名：`Modern_Oriental_ink_and_waterc_2026-10-14T05-50-35.png`（纯文本版）
 - **是否采纳**：是
 - **用户评价 / 可提炼的规则**：
 
