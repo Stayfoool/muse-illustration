@@ -13,6 +13,11 @@
           "type": "json",
           "path": ".claude-plugin/marketplace.json",
           "jsonpath": "$.plugins[0].version"
+        },
+        {
+          "comment": "SKILL.md 的 frontmatter 版本由行尾标记 x-release-please-version 驱动",
+          "type": "generic",
+          "path": "skills/muse-illustration/SKILL.md"
         }
       ]
     }

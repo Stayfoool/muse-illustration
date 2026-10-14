@@ -31,8 +31,8 @@
   ```
 - **负向**：见 `prompt.negative.txt`（当次完整负向：no drawing every roof tile, every brick or every leaf one by one; no dense hatching or cross-hatching; no realistic sketch shading; no photographic light-and-shadow modelling; no photo tracing; no woodcut filter effect; no complex gradients; no realistic shadows; no heavy thick black outlines; no watercolor bleeding; no 3D texture; no coarse paper fibers, stains, yellowing spots or over-aging; no text, no lettering, no characters, no signature, no seal.）
 - **参数**：size=1024x1536（2:3 竖版立轴） quality=high 张数=1
-- **参考图**：`assets/styles/jiangnan-muke/ref.png`（以 image1 传入，提示词内明确「只借风格、不抄构图」）
-- **成图**：`assets/cases/images/2026-10-14-yijiangnan.png`（技能内自包含副本）
+- **参考图**：`assets/styles/jiangnan-muke/ref.jpg`（以 image1 传入，提示词内明确「只借风格、不抄构图」）
+- **成图**：`assets/cases/images/2026-10-14-yijiangnan.jpg`（技能内自包含副本）
 - **原始输出路径**：/Users/yw/ai/poet/generated-images/A_vertical_hanging_scroll_illu_2026-10-14T04-37-31.png
 - **是否采纳**：是
 - **用户评价 / 可提炼的规则**：

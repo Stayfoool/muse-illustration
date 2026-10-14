@@ -5,7 +5,7 @@ license: MIT
 compatibility: Works with any agent that reads the open Agent Skill format (SKILL.md) — Claude Code, Codex, Cursor, Gemini CLI, Copilot, WorkBuddy and more. Image generation requires a text-to-image tool; style reference images are bundled.
 metadata:
   author: Stayfoool
-  version: "1.0.0"
+  version: "1.1.0" # x-release-please-version
   tags: agent-skill, illustration, chinese-poetry, text-to-image, poster, art
 agent_created: true
 ---
@@ -48,7 +48,7 @@ agent_created: true
 2. **选择风格**
    - 用户已指定 → 直接用
    - 未指定 → 按题材 / 情绪从 `assets/styles/` 推荐 1-2 条并说明理由，让用户选
-   - 读取该风格的 `meta.yaml` + `prompt.positive.txt` + `prompt.negative.txt` + `ref.png`
+   - 读取该风格的 `meta.yaml` + `prompt.positive.txt` + `prompt.negative.txt` + `ref.jpg`
 
 3. **确认出图参数**（用户可选；未指定则用风格默认值）
    - **张数**：1 张（省额度）/ 2 张 / 4 张（多变体择优，成本 ×N）
@@ -67,13 +67,13 @@ agent_created: true
 
 6. **交付与归档**
    - 用 present_files 展示成图
-   - 询问是否采纳；**用户采纳后**：① 把成图拷一份到 `assets/cases/images/YYYY-MM-DD-<slug>.png` 做成自包含副本；② 按 `references/style-spec-template.md` 的案例格式追加一条到 `assets/cases/`
+   - 询问是否采纳；**用户采纳后**：① 把成图拷一份到 `assets/cases/images/YYYY-MM-DD-<slug>.jpg` 做成自包含副本；② 按 `references/style-spec-template.md` 的案例格式追加一条到 `assets/cases/`
 
 ## 资源
 
 - `references/assembly-rules.md` —— 解析 / 组装 / 尺寸 / 叠字 的详细规则
 - `references/style-spec-template.md` —— 新增风格条目与案例记录的模板
-- `assets/styles/<风格名>/` —— 风格库（`meta.yaml` / `prompt.positive.txt` / `prompt.negative.txt` / `ref.png`）
+- `assets/styles/<风格名>/` —— 风格库（`meta.yaml` / `prompt.positive.txt` / `prompt.negative.txt` / `ref.jpg`）
 - `assets/lexicon/imagery.yaml` —— 意象 → 视觉元素 词典
 - `assets/cases/` —— 已采纳案例（经验沉淀）
 

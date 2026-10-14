@@ -11,7 +11,7 @@
 ├── meta.yaml
 ├── prompt.positive.txt
 ├── prompt.negative.txt
-└── ref.png
+└── ref.jpg
 ```
 
 ### meta.yaml
@@ -28,7 +28,7 @@ default:
   variants: 1                  # 默认张数
 positive_file: prompt.positive.txt
 negative_file: prompt.negative.txt
-ref: ref.png
+ref: ref.jpg
 ```
 
 ### prompt.positive.txt
@@ -54,7 +54,7 @@ ref: ref.png
 - **负向**：<负向约束>
 - **参数**：size=<...> quality=<...> 张数=<...>
 - **参考图**：<path 或 无>
-- **成图**：`assets/cases/images/YYYY-MM-DD-<slug>.png`（技能内自包含副本）｜原始输出：<path>
+- **成图**：`assets/cases/images/YYYY-MM-DD-<slug>.jpg`（技能内自包含副本）｜原始输出：<path>
 - **是否采纳**：是 / 否
 - **用户评价 / 可提炼的规则**：<用户怎么说；能沉淀成什么通用规则>
 ```

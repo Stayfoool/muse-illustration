@@ -9,7 +9,7 @@ default:
   variants: 1
 positive_file: prompt.positive.txt
 negative_file: prompt.negative.txt
-ref: ref.png
+ref: ref.jpg
 notes: >
   源自杜牧《江南春》的 risograph 版生成（2026-10-14）。与 jiangnan-muke（水印木刻）并列，
   但更强调丝网/孔版印刷的工业手工感。配方由用户从参考图提取并固化为

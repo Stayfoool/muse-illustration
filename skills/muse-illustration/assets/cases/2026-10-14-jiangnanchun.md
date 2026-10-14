@@ -15,8 +15,8 @@
 - **最终提示词**：见本风格 `prompt.positive.txt`（`{SUBJECT}` 填入上述意象的英文描述）
 - **负向**：见 `prompt.negative.txt`
 - **参数**：size=1024x1536（2:3 竖版立轴） quality=high 张数=1
-- **参考图**：本目录 `ref.png`
-- **成图**：`assets/cases/images/2026-10-14-jiangnanchun.png`（技能内自包含副本）
+- **参考图**：本目录 `ref.jpg`
+- **成图**：`assets/cases/images/2026-10-14-jiangnanchun.jpg`（技能内自包含副本）
 - **原始输出路径**：/Users/yw/ai/poet/generated-images/A_vertical_hanging_scroll_illu_2026-10-14T01-14-00.png
 - **是否采纳**：是
 - **用户评价 / 可提炼的规则**：

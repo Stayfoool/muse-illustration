@@ -9,7 +9,7 @@ default:
   variants: 1
 positive_file: prompt.positive.txt
 negative_file: prompt.negative.txt
-ref: ref.png
+ref: ref.jpg
 notes: >
   首条入库风格，源自杜牧《江南春》的一次生成。参考图为竖版立轴构图。
   复现要点：部件级指令（屋顶=深色轮廓 / 墙=纸色留白 / 水=几笔横线）+ 显式负向约束。

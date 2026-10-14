@@ -85,7 +85,7 @@ npx skills add Stayfoool/muse-illustration
 
 ## 新增风格
 
-在 `skills/muse-illustration/assets/styles/` 下按 `references/style-spec-template.md` 建目录，放入 `meta.yaml`、`prompt.positive.txt`、`prompt.negative.txt`、`ref.png`。
+在 `skills/muse-illustration/assets/styles/` 下按 `references/style-spec-template.md` 建目录，放入 `meta.yaml`、`prompt.positive.txt`、`prompt.negative.txt`、`ref.jpg`。
 
 **两条关键方法论**（写在 `SKILL.md` 里）：
 
