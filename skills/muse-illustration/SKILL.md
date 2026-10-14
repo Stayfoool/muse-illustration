@@ -1,6 +1,12 @@
 ---
 name: muse-illustration
-description: 把诗词、词句、意象或一句话灵感，转化为插画或海报。当用户提供一首诗词 / 词句 / 意象词 / 一句灵感，并要求画成画、出图、生成插画、做海报、配图，或要求用某个已收录风格出图时使用。内置可成长的风格库（风格配方 = 正向提示词 + 负向约束 + 参考图 + 参数），并支持用户选择出图张数与成品形态。
+description: Turn poems, imagery, or a one-line spark of inspiration into illustrations or posters, using a growing built-in style library. 把诗词、词句、意象或一句话灵感，转化为插画或海报。当用户提供一首诗词 / 词句 / 意象词 / 一句灵感，并要求画成画、出图、生成插画、做海报、配图，或要求用某个已收录风格出图时使用。内置可成长的风格库（风格配方 = 正向提示词 + 负向约束 + 参考图 + 参数），并支持选择风格、出图张数与成品形态。
+license: MIT
+compatibility: Works with any agent that reads the open Agent Skill format (SKILL.md) — Claude Code, Codex, Cursor, Gemini CLI, Copilot, WorkBuddy and more. Image generation requires a text-to-image tool; style reference images are bundled.
+metadata:
+  author: Stayfoool
+  version: "1.0.0"
+  tags: agent-skill, illustration, chinese-poetry, text-to-image, poster, art
 agent_created: true
 ---
 
